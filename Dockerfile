@@ -1,4 +1,4 @@
-FROM eclipse-temurin:22-jdk AS buildstage
+FROM eclipse-temurin:21-jdk AS buildstage
 
 RUN apt-get update && apt-get install -y maven
 
@@ -10,9 +10,9 @@ COPY Wallet_J4MXCG39LLG5V7MK /app/wallet
 
 ENV TNS_ADMIN=/app/wallet
 
-RUN mvn clean package
+RUN mvn clean package -DskipTests -B
 
-FROM eclipse-temurin:22-jdk
+FROM eclipse-temurin:21-jdk
 
 COPY --from=buildstage /app/target/exp1_s1-0.0.1-SNAPSHOT.jar /app/exp1_s1.jar
 
